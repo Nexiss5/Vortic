@@ -8,7 +8,7 @@ local Workspace = game:GetService("Workspace")
 
 --[[local Loaded,PromptLib = false,loadstring(game:HttpGet("https://raw.githubusercontent.com/AlexR32/Roblox/main/Useful/PromptLibrary.lua"))()
 if identifyexecutor() ~= "Synapse X" then
-    PromptLib("Unsupported executor","Synapse X only for safety measures\nYou are at risk of getting autoban\nAre you sure you want to load Parvus?",{
+    PromptLib("Unsupported executor","Synapse X only for safety measures\nYou are at risk of getting autoban\nAre you sure you want to load Vortic?",{
         {Text = "Yes",LayoutOrder = 0,Primary = false,Callback = function() Loaded = true end},
     }) repeat task.wait(1) until Loaded
 end]]
@@ -88,12 +88,12 @@ local ItemMemory,NoClipObjects,NoClipEvent = {},{},nil
 
 local AddObject = Instance.new("BindableEvent")
 AddObject.Event:Connect(function(...)
-    Parvus.Utilities.Drawing:AddObject(...)
+    Vortic.Utilities.Drawing:AddObject(...)
 end)
 
 local RemoveObject = Instance.new("BindableEvent")
 RemoveObject.Event:Connect(function(...)
-    Parvus.Utilities.Drawing:RemoveObject(...)
+    Vortic.Utilities.Drawing:RemoveObject(...)
 end)
 
 --RenderSettings.Loot = 1
@@ -157,8 +157,8 @@ local KnownBodyParts = {
     {"LeftUpperLeg",false},{"LeftLowerLeg",false},{"LeftFoot",false}
 }
 
-local Window = Parvus.Utilities.UI:Window({
-    Name = ("Parvus Hub %s %s"):format(utf8.char(8212),Parvus.Game.Name),
+local Window = Vortic.Utilities.UI:Window({
+    Name = ("Vortic Hub %s %s"):format(utf8.char(8212),Vortic.Game.Name),
     Position = UDim2.new(0.5,-248 * 3,0.5,-248)
 }) do Window:Watermark({Enabled = true})
 
@@ -257,7 +257,7 @@ local Window = Parvus.Utilities.UI:Window({
             TFOVSection:Slider({Name = "Thickness",Flag = "Trigger/FOVCircle/Thickness",Min = 1,Max = 10,Value = 2})
         end]]
     end
-    local VisualsSection = Parvus.Utilities:ESPSection(Window,"Visuals","ESP/Player",true,true,true,true,true,false) do
+    local VisualsSection = Vortic.Utilities:ESPSection(Window,"Visuals","ESP/Player",true,true,true,true,true,false) do
         VisualsSection:Colorpicker({Name = "Ally Color",Flag = "ESP/Player/Ally",Value = {0.3333333432674408,0.6666666269302368,1,0,false}})
         VisualsSection:Colorpicker({Name = "Enemy Color",Flag = "ESP/Player/Enemy",Value = {1,0.6666666269302368,1,0,false}})
         VisualsSection:Toggle({Name = "Team Check",Flag = "ESP/Player/TeamCheck",Value = false})
@@ -397,7 +397,7 @@ local Window = Parvus.Utilities.UI:Window({
                 TeleportBypass = true
                 while task.wait() do
                     if not Teleport(PlayerDropdown.Value[1]) then
-                        Parvus.Utilities.UI:Notification2({Title = "Teleport Ended",Duration = 5})
+                        Vortic.Utilities.UI:Notification2({Title = "Teleport Ended",Duration = 5})
                         TeleportBypass = false break
                     end
                 end
@@ -521,16 +521,16 @@ local Window = Parvus.Utilities.UI:Window({
             end}):Keybind()
             MiscSection:Toggle({Name = "Map ESP",Flag = "AR2/MapESP",Value = false})
         end
-    end Parvus.Utilities:SettingsSection(Window,"End",true)
-end Parvus.Utilities.InitAutoLoad(Window)
+    end Vortic.Utilities:SettingsSection(Window,"End",true)
+end Vortic.Utilities.InitAutoLoad(Window)
 
-Parvus.Utilities:SetupWatermark(Window)
---Parvus.Utilities:SetupLighting(Window.Flags)
-Parvus.Utilities.Drawing.SetupCursor(Window)
-Parvus.Utilities.Drawing.SetupCrosshair(Window.Flags)
---Parvus.Utilities.Drawing.FOVCircle("Aimbot",Window.Flags)
---Parvus.Utilities.Drawing.FOVCircle("Trigger",Window.Flags)
-Parvus.Utilities.Drawing.FOVCircle("SilentAim",Window.Flags)
+Vortic.Utilities:SetupWatermark(Window)
+--Vortic.Utilities:SetupLighting(Window.Flags)
+Vortic.Utilities.Drawing.SetupCursor(Window)
+Vortic.Utilities.Drawing.SetupCrosshair(Window.Flags)
+--Vortic.Utilities.Drawing.FOVCircle("Aimbot",Window.Flags)
+--Vortic.Utilities.Drawing.FOVCircle("Trigger",Window.Flags)
+Vortic.Utilities.Drawing.FOVCircle("SilentAim",Window.Flags)
 
 local XZVector = Vector3.new(1,0,1)
 local WallCheckParams = RaycastParams.new()
@@ -652,7 +652,7 @@ local function CheckForAdmin(Player)
         if Window.Flags["AR2/StaffJoin/List"][1] == "Kick" then
             LocalPlayer:Kick(Message)
         elseif Window.Flags["AR2/StaffJoin/List"][1] == "Server Hop" then
-            Parvus.Utilities.ServerHop()
+            Vortic.Utilities.ServerHop()
         elseif Window.Flags["AR2/StaffJoin/List"][1] == "Notify" then
             UI:Notification2({Title = Message,Duration = 20})
         end
@@ -947,7 +947,7 @@ end)
 
         if _Instance and IsNetworkableHit(_Instance) then
             if Window.Flags["AR2/BulletTracer/Enabled"] then
-                Parvus.Utilities.MakeBeam(Args[4],BodyPartPosition,Window.Flags["AR2/BulletTracer/Color"])
+                Vortic.Utilities.MakeBeam(Args[4],BodyPartPosition,Window.Flags["AR2/BulletTracer/Color"])
             end
             Network:Send("Bullet Impact",Args[1],Args[5].Id,Args[2],Args[3],_Instance,Position,{
                 _Instance.CFrame:PointToObjectSpace(_Ray.Origin),
@@ -976,7 +976,7 @@ end)
 setupvalue(VehicleController.Step,2,function(Self,Throttle,...)
     if Window.Flags["AR2/Vehicle/Enabled"] then
         --[[if Window.Flags["AR2/Vehicle/Fly"] then
-            local MoveDirection = Parvus.Utilities.MovementToDirection()
+            local MoveDirection = Vortic.Utilities.MovementToDirection()
 
             Self.BasePart.AssemblyLinearVelocity = Vector3.zero
             Self.BasePart.CFrame += MoveDirection * Window.Flags["AR2/Fly/Speed"]
@@ -1069,12 +1069,12 @@ Bullets.Fire = function(Self,...)
             Args[4] = Args[4] + Direction.Unit * Distance
         end
 
-        local BodyPartPosition = Parvus.Utilities.Physics.SolveTrajectory(Args[4],SilentAim[3].Position,
+        local BodyPartPosition = Vortic.Utilities.Physics.SolveTrajectory(Args[4],SilentAim[3].Position,
         SilentAim[3].AssemblyLinearVelocity,ProjectileSpeed,ProjectileGravity)
 
         Args[5] = (BodyPartPosition - Args[4]).Unit
         if Window.Flags["AR2/BulletTracer/Enabled"] then
-            Parvus.Utilities.MakeBeam(Args[4],BodyPartPosition,Window.Flags["AR2/BulletTracer/Color"])
+            Vortic.Utilities.MakeBeam(Args[4],BodyPartPosition,Window.Flags["AR2/BulletTracer/Color"])
         end
 
         return OldFire(Self,unpack(Args))
@@ -1220,7 +1220,7 @@ Interface:GetVisibilityChangedSignal("Map"):Connect(function(Visible)
     end
 end)
 
---[[Parvus.Utilities.NewThreadLoop(0,function()
+--[[Vortic.Utilities.NewThreadLoop(0,function()
     if not (Aimbot or Window.Flags["Aimbot/AlwaysEnabled"]) then return end
 
     AimAt(GetClosest(
@@ -1235,7 +1235,7 @@ end)
         Window.Flags["Aimbot/Prediction"]
     ),Window.Flags["Aimbot/Sensitivity"] / 100)
 end)]]
-Parvus.Utilities.NewThreadLoop(0,function()
+Vortic.Utilities.NewThreadLoop(0,function()
     SilentAim = GetClosest(
         Window.Flags["SilentAim/Enabled"],
         Window.Flags["SilentAim/TeamCheck"],
@@ -1246,7 +1246,7 @@ Parvus.Utilities.NewThreadLoop(0,function()
         Window.Flags["SilentAim/BodyParts"]
     )
 end)
---[[Parvus.Utilities.NewThreadLoop(0,function()
+--[[Vortic.Utilities.NewThreadLoop(0,function()
     if not (Trigger or Window.Flags["Trigger/AlwaysEnabled"]) then return end
     --if not iswindowactive() then return end
 
@@ -1280,26 +1280,26 @@ end)
     end mouse1release()
 end)]]
 
-Parvus.Utilities.NewThreadLoop(0,function(Delta)
+Vortic.Utilities.NewThreadLoop(0,function(Delta)
     if not Window.Flags["AR2/WalkSpeed/Enabled"] then return end
 
     if not PlayerClass.Character then return end
     local RootPart = PlayerClass.Character.RootPart
-    local MoveDirection = Parvus.Utilities.MovementToDirection() * XZVector
+    local MoveDirection = Vortic.Utilities.MovementToDirection() * XZVector
 
     RootPart.CFrame += MoveDirection * Delta * Window.Flags["AR2/WalkSpeed/Speed"] * 100
 end)
-Parvus.Utilities.NewThreadLoop(0,function(Delta)
+Vortic.Utilities.NewThreadLoop(0,function(Delta)
     if not Window.Flags["AR2/Fly/Enabled"] then return end
 
     if not PlayerClass.Character then return end
     local RootPart = PlayerClass.Character.RootPart
-    local MoveDirection = Parvus.Utilities.MovementToDirection()
+    local MoveDirection = Vortic.Utilities.MovementToDirection()
 
     RootPart.AssemblyLinearVelocity = Vector3.zero
     RootPart.CFrame += MoveDirection * (Window.Flags["AR2/Fly/Speed"] * (Delta * 60))
 end)
-Parvus.Utilities.NewThreadLoop(0.1,function()
+Vortic.Utilities.NewThreadLoop(0.1,function()
     if not Window.Flags["AR2/MeleeAura"]
     and not Window.Flags["AR2/AntiZombie/MeleeAura"] then return end
 
@@ -1311,7 +1311,7 @@ Parvus.Utilities.NewThreadLoop(0.1,function()
     if not EnemyRoot then return end
     SwingMelee(EnemyRoot)
 end)
-Parvus.Utilities.NewThreadLoop(1,function()
+Vortic.Utilities.NewThreadLoop(1,function()
     if not Window.Flags["AR2/HeadExpander"] then return end
     for Index,Player in pairs(PlayerService:GetPlayers()) do
         if Player == LocalPlayer then continue end
@@ -1324,12 +1324,12 @@ Parvus.Utilities.NewThreadLoop(1,function()
         Head.CanCollide = true
     end
 end)
-Parvus.Utilities.NewThreadLoop(0,function()
+Vortic.Utilities.NewThreadLoop(0,function()
     if not Window.Flags["AR2/Lighting/Enabled"] then return end
     local Time = Workspace:GetServerTimeNow() + LightingState.StartTime
     LightingState.BaseTime = Time + ((Window.Flags["AR2/Lighting/Time"] * 86400 / LightingState.CycleLength) % 1440)
 end)
-Parvus.Utilities.NewThreadLoop(1,function()
+Vortic.Utilities.NewThreadLoop(1,function()
     if not Window.Flags["AR2/ESP/Items/Enabled"]
     and not Window.Flags["AR2/ESP/Items/Containers/Enabled"] then return end
 
@@ -1360,7 +1360,7 @@ for Index,Item in pairs(Loot:GetDescendants()) do
         local ItemData = ReplicatedStorage.ItemData:FindFirstChild(Item.Name,true)
         if not ItemData then continue end --print(ItemData.Parent.Name)
 
-        Parvus.Utilities.Drawing:AddObject(Item,Item.Name,Item.Value.Position,
+        Vortic.Utilities.Drawing:AddObject(Item,Item.Name,Item.Value.Position,
             "AR2/ESP/Items","AR2/ESP/Items/" .. ItemData.Parent.Name,Window.Flags
         )
     end
@@ -1368,7 +1368,7 @@ end
 for Index,Event in pairs(Randoms:GetChildren()) do
     for Index,Data in pairs(RandomEvents) do
         if Event.Name ~= Data[1] then continue end --print(Event.Name)
-        Parvus.Utilities.Drawing:AddObject(Event,Event.Name,Event.Value.Position,
+        Vortic.Utilities.Drawing:AddObject(Event,Event.Name,Event.Value.Position,
             "AR2/ESP/RandomEvents","AR2/ESP/RandomEvents/" .. Event.Name,Window.Flags
         )
     end
@@ -1377,7 +1377,7 @@ for Index,Corpse in pairs(Corpses:GetChildren()) do
     if Corpse.Name == "Zombie" then continue end
     if not Corpse.PrimaryPart then continue end
 
-    Parvus.Utilities.Drawing:AddObject(
+    Vortic.Utilities.Drawing:AddObject(
         Corpse,Corpse.Name,Corpse.PrimaryPart,
         "AR2/ESP/Corpses","AR2/ESP/Corpses",Window.Flags
     )
@@ -1392,7 +1392,7 @@ for Index,Zombie in pairs(Zombies.Mobs:GetChildren()) do
             if Inherit ~= Data[1] then continue end --print(Inherit.Name)
             local InheritName = Inherit:gsub("Presets.",""):gsub(" ","")
 
-            Parvus.Utilities.Drawing:AddObject(
+            Vortic.Utilities.Drawing:AddObject(
                 Zombie,Zombie.Name,Zombie.PrimaryPart,"AR2/ESP/Zombies",
                 "AR2/ESP/Zombies/"..InheritName,Window.Flags
             )
@@ -1402,7 +1402,7 @@ end
 for Index,Vehicle in pairs(Vehicles:GetChildren()) do
     if not Vehicle.PrimaryPart then continue end
 
-    Parvus.Utilities.Drawing:AddObject(
+    Vortic.Utilities.Drawing:AddObject(
         Vehicle,Vehicle.Name,Vehicle.PrimaryPart,
         "AR2/ESP/Vehicles","AR2/ESP/Vehicles",Window.Flags
     )
@@ -1413,7 +1413,7 @@ Loot.DescendantAdded:Connect(function(Item)
         local ItemData = ReplicatedStorage.ItemData:FindFirstChild(Item.Name,true)
         if not ItemData then return end --print(ItemData.Parent.Name)
 
-        Parvus.Utilities.Drawing:AddObject(Item,Item.Name,Item.Value.Position,
+        Vortic.Utilities.Drawing:AddObject(Item,Item.Name,Item.Value.Position,
             "AR2/ESP/Items","AR2/ESP/Items/" .. ItemData.Parent.Name,Window.Flags
         )
     end
@@ -1421,7 +1421,7 @@ end)
 Randoms.ChildAdded:Connect(function(Event)
     for Index,Data in pairs(RandomEvents) do
         if Event.Name ~= Data[1] then continue end --print(Event.Name)
-        Parvus.Utilities.Drawing:AddObject(Event,Event.Name,Event.Value.Position,
+        Vortic.Utilities.Drawing:AddObject(Event,Event.Name,Event.Value.Position,
             "AR2/ESP/RandomEvents","AR2/ESP/RandomEvents/" .. Event.Name,Window.Flags
         )
 
@@ -1429,14 +1429,14 @@ Randoms.ChildAdded:Connect(function(Event)
         and Window.Flags["AR2/ESP/RandomEvents/" .. Event.Name] then
             local Distance = (Event.Value.Position - Camera.CFrame.Position).Magnitude
             local Title = string.format("%s spawned (~%i studs away)",Event.Name,Distance)
-            Parvus.Utilities.UI:Notification2({Title = Title,Duration = 20})
+            Vortic.Utilities.UI:Notification2({Title = Title,Duration = 20})
         end
     end
 end)
 Corpses.ChildAdded:Connect(function(Corpse)
     if Corpse.Name == "Zombie" then return end
     repeat task.wait() until Corpse.PrimaryPart
-    Parvus.Utilities.Drawing:AddObject(
+    Vortic.Utilities.Drawing:AddObject(
         Corpse,Corpse.Name,Corpse.PrimaryPart,
         "AR2/ESP/Corpses","AR2/ESP/Corpses",Window.Flags
     )
@@ -1451,7 +1451,7 @@ Zombies.Mobs.ChildAdded:Connect(function(Zombie)
             if Inherit ~= Data[1] then continue end --print(Inherit.Name)
             local InheritName = Inherit:gsub("Presets.",""):gsub(" ","")
 
-            Parvus.Utilities.Drawing:AddObject(
+            Vortic.Utilities.Drawing:AddObject(
                 Zombie,Zombie.Name,Zombie.PrimaryPart,"AR2/ESP/Zombies",
                 "AR2/ESP/Zombies/"..InheritName,Window.Flags
             )
@@ -1462,26 +1462,26 @@ Vehicles.ChildAdded:Connect(function(Vehicle)
     repeat task.wait() until Vehicle.PrimaryPart
     --print(Vehicle.Name)
 
-    Parvus.Utilities.Drawing:AddObject(
+    Vortic.Utilities.Drawing:AddObject(
         Vehicle,Vehicle.Name,Vehicle.PrimaryPart,
         "AR2/ESP/Vehicles","AR2/ESP/Vehicles",Window.Flags
     )
 end)
 
 Loot.DescendantRemoving:Connect(function(Item)
-    Parvus.Utilities.Drawing:RemoveObject(Item)
+    Vortic.Utilities.Drawing:RemoveObject(Item)
 end)
 Randoms.ChildRemoved:Connect(function(Event)
-    Parvus.Utilities.Drawing:RemoveObject(Event)
+    Vortic.Utilities.Drawing:RemoveObject(Event)
 end)
 Corpses.ChildRemoved:Connect(function(Corpse)
-    Parvus.Utilities.Drawing:RemoveObject(Corpse)
+    Vortic.Utilities.Drawing:RemoveObject(Corpse)
 end)
 Zombies.Mobs.ChildRemoved:Connect(function(Zombie)
-    Parvus.Utilities.Drawing:RemoveObject(Zombie)
+    Vortic.Utilities.Drawing:RemoveObject(Zombie)
 end)
 Vehicles.ChildRemoved:Connect(function(Vehicle)
-    Parvus.Utilities.Drawing:RemoveObject(Vehicle)
+    Vortic.Utilities.Drawing:RemoveObject(Vehicle)
 end)
 
 Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
@@ -1490,13 +1490,13 @@ end)
 
 for Index,Player in pairs(PlayerService:GetPlayers()) do
     if Player == LocalPlayer then continue end
-    Parvus.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Vortic.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
     task.spawn(function() CheckForAdmin(Player) end)
 end
 PlayerService.PlayerAdded:Connect(function(Player)
-    Parvus.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
+    Vortic.Utilities.Drawing:AddESP(Player,"Player","ESP/Player",Window.Flags)
     task.spawn(function() CheckForAdmin(Player) end)
 end)
 PlayerService.PlayerRemoving:Connect(function(Player)
-    Parvus.Utilities.Drawing:RemoveESP(Player)
+    Vortic.Utilities.Drawing:RemoveESP(Player)
 end)
